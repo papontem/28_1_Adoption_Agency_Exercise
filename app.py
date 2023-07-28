@@ -63,6 +63,10 @@ def edit_details_pet(pet_id):
         # #### TODO: for some reason the form validation keeps failing
         # pet information seems to be left what values we put in edit form at time of submission, 
         # but when we go back to homepage, none of the changes are staying.
+        ##### Posible reason, I forgot to add action attribute to edit pet form.
+        ##### still not validating correctly, 
+        ##### form.errors is currently telling me that name and species are being left blank
+        ##### but when we check the data for fields name and species, i do in fact get data.
         # Edit the pets data
         pet.photo_url = form.photo_url.data
         pet.notes     = form.notes.data
@@ -77,4 +81,5 @@ def edit_details_pet(pet_id):
         return redirect(f"/")
 
     else:
+        raise
         return render_template("edit_details_pet_form.html",pet=pet, form=form)

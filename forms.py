@@ -7,22 +7,22 @@ class AddPetsForm(FlaskForm):
 
     species_choices = ['cat', 'dog', 'porcupine']
 
-    name = StringField("Pet name",
+    name = StringField("Pet Name",
                         validators=[InputRequired(message="Name cannot be blank")])
     
-    species = StringField("Pet species",
+    species = StringField("Pet Species",
                            validators=[
                                InputRequired(message="Species cannot be blank"),
                                AnyOf(species_choices, message="We are only accepting pet species of 'cat', 'dog' and 'porcupine'")
                                ])
     
-    photo_url = StringField("Link photo of pet", 
+    photo_url = StringField("Photo URL", 
                             validators=[Optional(), URL(message="Invalid URL")])
     
-    age = FloatField("Pet age in years",
+    age = FloatField("Pet Age",
                       validators=[Optional(), NumberRange(min=0, max=30, message="Age must be between 0 and 30 years of age.")])
     
-    notes = StringField("any notes?", 
+    notes = StringField("Notes", 
                         validators=[Optional()])
     
     available = BooleanField("Available?",validators=[Optional()])

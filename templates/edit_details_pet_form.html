@@ -20,12 +20,28 @@
     {%endif%}
     
 </div>
-<form method="POST">
+<form action="/{{pet.id}}" method="POST">
     {{ form.hidden_tag() }}
+
+    <!-- manualy -->
+    <!-- {{form.photo_url.label(class_="form_label")}}
+    {{form.photo_url(class_="form_input")}}
+    <br>
+    {{form.notes.label(class_="form_label")}}
+    {{form.notes(class_="form_input")}}
+    <br>
+    {{form.available.label(class_="form_label")}}
+    {{form.available(class_="form_input")}}
+    <br> -->
+    
     {% for field in form if field.widget.input_type != 'hidden'%}
-    {% set nono_label = ["Pet name","Pet species","Pet age in years"] %}
-    {% if field.label.text not in nono_labels %}
+
+    {% set nono_label = ["Pet Name","Pet Species","Pet Age"] %}
+
+    {% if field.label.text not in nono_label %}
+
         <div>
+
             {{field.label(class_="form_label")}}
             {{field(class_="form_input")}}
             {% for err in field.errors %}
@@ -33,10 +49,16 @@
                 {{err}}
             </small>
             {% endfor %}
+
         </div>
+
     {% endif %}
+    {# end of fields for loop #}
     {% endfor %}
-    <button>Edit Pet</button>
+
+    <!-- edit button -->
+    <button>Submit Edits To Pet</button>
+
 </form>
 <br>
 <a href="/" >Go Back</a>
