@@ -10,7 +10,8 @@
     {{ form.hidden_tag() }}
 
     {% for field in form if field.widget.input_type != 'hidden'%}
-        {% if field.label.text != 'Available'%}
+
+        {% if field.label.text != 'Available?'%}
         <div>
             {{field.label(class_="form_label")}}
             {{field(class_="form_input")}}

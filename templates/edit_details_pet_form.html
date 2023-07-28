@@ -20,7 +20,8 @@
     {%endif%}
     
 </div>
-<form action="/{{pet.id}}" method="POST">
+
+<form method="POST">
     {{ form.hidden_tag() }}
 
     <!-- manualy -->
@@ -36,23 +37,22 @@
     
     {% for field in form if field.widget.input_type != 'hidden'%}
 
-    {% set nono_label = ["Pet Name","Pet Species","Pet Age"] %}
+    {# set nono_label = ["Pet Name","Pet Species","Pet Age"] #}
 
-    {% if field.label.text not in nono_label %}
+    {# if field.label.text not in nono_label #}
 
         <div>
-
             {{field.label(class_="form_label")}}
             {{field(class_="form_input")}}
             {% for err in field.errors %}
-            <small class="form-text text-danger">
-                {{err}}
-            </small>
+                <small class="messages error">
+                    {{err}}
+                </small>
             {% endfor %}
-
         </div>
 
-    {% endif %}
+    {# endif #}
+    
     {# end of fields for loop #}
     {% endfor %}
 

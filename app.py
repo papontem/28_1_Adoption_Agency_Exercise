@@ -57,16 +57,22 @@ def edit_details_pet(pet_id):
     """Show pet details and edit form and handle edit."""
 
     pet = Pet.query.get_or_404(pet_id)
+
     form = AddPetsForm(obj=pet)
+
+    # form = AddPetsForm()
+
+    # pythons native debugger stalls when hit
+    # import pdb
+    # pdb.set_trace()
+
 
     if form.validate_on_submit():
         # #### TODO: for some reason the form validation keeps failing
-        # pet information seems to be left what values we put in edit form at time of submission, 
-        # but when we go back to homepage, none of the changes are staying.
-        ##### Posible reason, I forgot to add action attribute to edit pet form.
-        ##### still not validating correctly, 
-        ##### form.errors is currently telling me that name and species are being left blank
-        ##### but when we check the data for fields name and species, i do in fact get data.
+        ## data from forms thats prefilled by pet obj in route doesnt get filled if i dont render the field.
+        ## validates corrrectly if i display the name and species fields.
+        #  (´･_･`) so just ignore whatever name or species user trys to input
+
         # Edit the pets data
         pet.photo_url = form.photo_url.data
         pet.notes     = form.notes.data
@@ -75,11 +81,13 @@ def edit_details_pet(pet_id):
         db.session.commit()
 
         # flash user success
-        # flash(f"Pet {pet.id} updated!","success")
+        flash(f"Pet {pet.id} updated!","success")
 
         # return redirect(f"/{pet.id}")
         return redirect(f"/")
 
     else:
-        raise
+
+        # raise
+
         return render_template("edit_details_pet_form.html",pet=pet, form=form)
