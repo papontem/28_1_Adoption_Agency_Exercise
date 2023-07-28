@@ -60,8 +60,6 @@ def edit_details_pet(pet_id):
 
     form = AddPetsForm(obj=pet)
 
-    # form = AddPetsForm()
-
     # pythons native debugger stalls when hit
     # import pdb
     # pdb.set_trace()
@@ -71,7 +69,7 @@ def edit_details_pet(pet_id):
         # #### TODO: for some reason the form validation keeps failing
         ## data from forms thats prefilled by pet obj in route doesnt get filled if i dont render the field.
         ## validates corrrectly if i display the name and species fields.
-        #  (´･_･`) so just ignore whatever name or species user trys to input
+        #  (´･_･`) so just ignore whatever name or species user tries to input
 
         # Edit the pets data
         pet.photo_url = form.photo_url.data
@@ -83,7 +81,6 @@ def edit_details_pet(pet_id):
         # flash user success
         flash(f"Pet {pet.id} updated!","success")
 
-        # return redirect(f"/{pet.id}")
         return redirect(f"/")
 
     else:
