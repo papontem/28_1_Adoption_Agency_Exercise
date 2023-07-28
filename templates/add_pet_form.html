@@ -1,0 +1,27 @@
+<!-- prettier-ignore -->
+{% extends 'base.html'%} 
+{% block title%}Add Pet Form{% endblock%}
+<!--  -->
+{% block content %}
+<!-- HTML BODY TAG CONTENT OF WEBPAGE -->
+
+<h2>Add New Pet</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    {% for field in form if field.widget.input_type != 'hidden'%}
+    <div>
+    {{field.label(class_="form_label")}}
+    {{field(class_="form_input")}}
+    {% for err in field.errors %}
+    <small class="form-text text-danger">
+        {{err}}
+    </small>
+    {% endfor %}
+    </div>
+    {% endfor %}
+    <button>Surrender This Pet</button>
+    <br>
+    <a href="/" >Go Back</a>
+</form>
+{% endblock %}
