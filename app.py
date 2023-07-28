@@ -19,7 +19,9 @@ connect_db(app)
 def homepage():
     """Show homepage links."""
 
-    return render_template("home.html")
+    pets = Pet.query.all()
+
+    return render_template("home.html",pets=pets)
 
 
 # @app.route("/add", methods=["GET", "POST"])

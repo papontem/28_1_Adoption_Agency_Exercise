@@ -7,5 +7,52 @@
 
 <h2>Home</h2>
 <p>Welcome to this simple adoption agency app</p>
+<table>
+    <thead>
+        <tr>
+            <th colspan="7" id="pets_table_title">Pets List</th>
+        </tr>
+        <tr>
+            <th>Edit</th>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Age</th>
+            <th>Available</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    {% for pet in pets %}
+    
+    <tr>
+        <td><a href="/">Edit</a></td>
 
+        <td><img class="Pet_Photo" src="{{pet.photo_url}}" alt="Pet Photo N/A"></td>
+
+        <td>{{pet.name}}</td>
+
+        <td>{{pet.species}}</td>
+
+        {% if pet.age %}
+        <td>{{pet.age}}</td>
+        {% else %}
+        <td> NA </td>
+        {% endif %}
+
+        <!-- Might change the wording later that is why i still have pet available there for else  -->
+        {% if pet.available %}
+        <td><b>{{pet.available}}</b></td>
+        {% else %}
+        <td><b>{{pet.available}}</b></td>
+        {% endif %}
+
+        {% if pet.notes %}
+        <td>{{pet.notes}}</td>
+        {% else %}
+        <td> none </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+
+</table>
 {% endblock %}
