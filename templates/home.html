@@ -29,7 +29,7 @@
     {% for pet in pets %}
     
     <tr>
-        <td><a href="/">Edit</a></td>
+        <td><a href="/{{pet.id}}">Details/Edit</a></td>
 
         <td><img class="Pet_Photo" src="{{pet.photo_url}}" alt="Pet Photo N/A"></td>
 

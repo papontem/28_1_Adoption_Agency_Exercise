@@ -1,0 +1,43 @@
+<!-- prettier-ignore -->
+{% extends 'base.html'%} 
+{% block title%}{{pet.name}}'s Profile{% endblock%}
+<!--  -->
+{% block content %}
+<!-- HTML BODY TAG CONTENT OF WEBPAGE -->
+
+<h2>Pet Profile</h2>
+<h3>{{pet.name}}</h3>
+<div class="Pet_details">
+    <img class="Pet_Photo" src="{{pet.photo_url}}" alt="Pet Photo N/A">
+    <p>Hello! I am {{pet.name}}.</p>
+    <p>Species: {{pet.species}}</p>
+
+    {% if pet.age %}
+    <p>Age: {{pet.age}}</p>
+    {% else %}
+    <!-- no age submitted -->
+    <p>Age: N/A</p>
+    {%endif%}
+    
+</div>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden'%}
+    {% set nono_label = ["Pet name","Pet species","Pet age in years"] %}
+    {% if field.label.text not in nono_labels %}
+        <div>
+            {{field.label(class_="form_label")}}
+            {{field(class_="form_input")}}
+            {% for err in field.errors %}
+            <small class="form-text text-danger">
+                {{err}}
+            </small>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% endfor %}
+    <button>Edit Pet</button>
+</form>
+<br>
+<a href="/" >Go Back</a>
+{% endblock %}

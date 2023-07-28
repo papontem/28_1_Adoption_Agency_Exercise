@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField
+from wtforms import StringField, FloatField, BooleanField
 from wtforms.validators import InputRequired, Optional, URL, NumberRange, AnyOf
 
 class AddPetsForm(FlaskForm):
@@ -24,3 +24,5 @@ class AddPetsForm(FlaskForm):
     
     notes = StringField("any notes?", 
                         validators=[Optional()])
+    
+    available = BooleanField("Available?",validators=[Optional()])

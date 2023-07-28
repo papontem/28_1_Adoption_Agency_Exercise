@@ -28,7 +28,7 @@ def homepage():
 
 
 @app.route("/add", methods=["GET", "POST"])
-def add_snack():
+def add_pet():
     """ Pet add form; handle adding."""
 
     form = AddPetsForm()
@@ -52,19 +52,29 @@ def add_snack():
         return render_template("add_pet_form.html", form=form)
 
 
-# @app.route("/users/<int:uid>/edit", methods=["GET", "POST"])
-# def edit_user(uid):
-#     """Show user edit form and handle edit."""
+@app.route("/<int:pet_id>", methods=["GET", "POST"])
+def edit_details_pet(pet_id):
+    """Show pet details and edit form and handle edit."""
 
-#     user = User.query.get_or_404(uid)
-#     form = UserForm(obj=user)
+    pet = Pet.query.get_or_404(pet_id)
+    form = AddPetsForm(obj=pet)
 
-#     if form.validate_on_submit():
-#         user.name = form.name.data
-#         user.email = form.email.data
-#         db.session.commit()
-#         flash(f"User {uid} updated!")
-#         return redirect(f"/users/{uid}/edit")
+    if form.validate_on_submit():
+        # #### TODO: for some reason the form validation keeps failing
+        # pet information seems to be left what values we put in edit form at time of submission, 
+        # but when we go back to homepage, none of the changes are staying.
+        # Edit the pets data
+        pet.photo_url = form.photo_url.data
+        pet.notes     = form.notes.data
+        pet.available = form.available.data
 
-#     else:
-#         return render_template("user_form.html", form=form)
+        db.session.commit()
+
+        # flash user success
+        # flash(f"Pet {pet.id} updated!","success")
+
+        # return redirect(f"/{pet.id}")
+        return redirect(f"/")
+
+    else:
+        return render_template("edit_details_pet_form.html",pet=pet, form=form)

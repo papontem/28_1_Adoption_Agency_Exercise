@@ -5,21 +5,22 @@
 {% block content %}
 <!-- HTML BODY TAG CONTENT OF WEBPAGE -->
 
-<h2>Add New Pet</h1>
+<h2>Add New Pet</h2>
 <form method="POST">
     {{ form.hidden_tag() }}
 
     {% for field in form if field.widget.input_type != 'hidden'%}
-    <div>
-    {{field.label(class_="form_label")}}
-    {{field(class_="form_input")}}
-    {% for err in field.errors %}
-    <small class="form-text text-danger">
-        {{err}}
-    </small>
+        {% if field.label.text != 'Available'%}
+        <div>
+            {{field.label(class_="form_label")}}
+            {{field(class_="form_input")}}
+            {% for err in field.errors %}
+            <small><i>{{err}}</i></small>
+            {% endfor %}
+        </div>
+        {% endif %}
     {% endfor %}
-    </div>
-    {% endfor %}
+    
     <button>Surrender This Pet</button>
     <br>
     <a href="/" >Go Back</a>
