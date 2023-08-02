@@ -2,7 +2,7 @@ from flask import Flask, render_template, flash, redirect, render_template
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Pet
 
-from forms import AddPetsForm
+from forms import AddPetsForm, EditPetsForm
 
 app = Flask(__name__)
 # FLASK SETTINGS
@@ -51,14 +51,14 @@ def add_pet():
     else:
         return render_template("add_pet_form.html", form=form)
 
-
+## industry standard is to seperate these methods
 @app.route("/<int:pet_id>", methods=["GET", "POST"])
 def edit_details_pet(pet_id):
     """Show pet details and edit form and handle edit."""
 
     pet = Pet.query.get_or_404(pet_id)
 
-    form = AddPetsForm(obj=pet)
+    form = EditPetsForm(obj=pet)
 
     # pythons native debugger stalls when hit
     # import pdb
@@ -66,11 +66,6 @@ def edit_details_pet(pet_id):
 
 
     if form.validate_on_submit():
-        # #### TODO: for some reason the form validation keeps failing
-        ## data from forms thats prefilled by pet obj in route doesnt get filled if i dont render the field.
-        ## validates corrrectly if i display the name and species fields.
-        #  (´･_･`) so just ignore whatever name or species user tries to input
-
         # Edit the pets data
         pet.photo_url = form.photo_url.data
         pet.notes     = form.notes.data
@@ -84,7 +79,5 @@ def edit_details_pet(pet_id):
         return redirect(f"/")
 
     else:
-
         # raise
-
-        return render_template("edit_details_pet_form.html",pet=pet, form=form)
+        return render_template("edit_details_pet_form.html", pet=pet, form=form)
